@@ -1,0 +1,26 @@
+http:
+    port: 5002
+admin:
+    port: 9876
+    hostname: "localhost"
+apiEndpoints:
+    mocApi:
+        host: "172.17.40.102"
+serviceEndpoints:
+    mocService:
+        url: "https://api.elnusapetrofin.co.id/moc"
+policies:
+    - key-auth
+    - proxy
+    - cors
+pipelines:
+    - name: moc
+      apiEndpoints:
+          - mocApi
+      policies:
+          - proxy:
+                - action:
+                      serviceEndpoint: mocService
+          - cors:
+                - action:
+                      origin: "*"
